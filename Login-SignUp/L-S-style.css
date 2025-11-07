@@ -23,7 +23,7 @@ body {
     align-items: center;
     padding: 10px 40px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    position: fixed; /* header stays at top */
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 500;
@@ -73,7 +73,7 @@ body {
 
 /* SIGN UP / LOGIN CONTAINER */
 .container {
-    margin: 140px auto 50px; /* pushes below header */
+    margin: 140px auto 50px;
     background: rgba(48, 26, 16, 0.85);
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 150, 50, 0.1);
