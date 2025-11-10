@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="Menu.css">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<header class="main-header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="IMAGE/Logo.jpg" alt="Logo">
+        </div>
+
+    <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="Menu.html" class="active">MENU</a></li>
+                <li><a href="#">CONTACT</a></li>
+                <li><a href="#">LOGIN/SIGNUP</a></li>
+            </ul>
+        </nav>
+
+        <!-- ORDER/CART BUTTON -->
+        <div class="order-actions"> 
+    
+    <a href="cart.html" class="cart-icon-link">
+        <span class="cart-count">0</span> <span class="cart-icon">🛍️</span>
+    </a>
+    
+    <div class="order-button">
+        <a href="#" class="btn">ORDER NOW</a>
+    </div>
+</div>
+    </header>
+
+
+
+    <!-- MENU PAGE -->
+    <main class="menu-page">
+        <div class="menu-sidebar">
+
+            <!-- MENU CATEGORIES -->
+            <h2 class="sidebar-heading">Our Menu</h2>
+        <ul class="menu-categories">
+            <li><a href="#" class="category-link active" data-target="burgers-content">Burgers</a></li>
+            <li><a href="#" class="category-link" data-target="appetizers-content">Appetizers</a></li>
+            <li><a href="#" class="category-link" data-target="texasbbq-content">Texas BBQ</a></li>
+            <li><a href="#" class="category-link" data-target="beverages-content">Beverages</a></li>
+            <li><a href="#" class="category-link" data-target="desserts-content">Desserts</a></li>
+        </ul>
+        </div>
+
+        <!-- FOOD OPTIONS -->
+        <section class="menu-content">
+
+            <!-- BURGERS -->
+        <div id="burgers-content" class="menu-section active-section">
+            
+                <div class="menu-item">
+                <img src="IMAGE/Kincaid’s Hamburgers.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Kincaid’s Hamburgers</h3>
+                    <span class="item-price">$7.65</span></h3>
+                    <p class="item-desc">The burger was tremendously beefy!</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="IMAGE/Reese Bros BBQ.webp" alt="Lemonade">
+                <div class="item-details">
+                    <h3>Reese Bros BBQ</h3>
+                    <span class="item-price">$11.99</span></h3>
+                    <p class="item-desc">Smoked brisket burger with American cheese on a brioche bun.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="IMAGE/Jabs Smashed Burgers.webp" alt="Iced Tea">
+                <div class="item-details">
+                    <h3>Jabs Smashed Burgers</h3>
+                    <span class="item-price">$9.99</span></h3>
+                    <p class="item-desc">The hottest food trend features Jabs' smashed burger, made with high-quality Creekstone Farms beef and great prices.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <img src="IMAGE/SMASH BURGER.jpg" alt="Iced Tea">
+                <div class="item-details">
+                    <h3>SMASH BURGER</h3>
+                    <span class="item-price">$7.99</span></h3>
+                    <p class="item-desc">a thin burger patty made by pressing a ball of ground beef onto a very hot griddle</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <!-- APPETIZERS -->
+    <div id="appetizers-content" class="menu-section hidden-section">
+        
+        <div class="menu-item">
+                <img src="IMAGE/Grilled Shrimp Appetizer.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Grilled Shrimp Appetizer</h3>
+                    <span class="item-price">$8.49</span></h3>
+                    <p class="item-desc">SeaFood Lovers will love this!</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+
+        <div class="menu-item">
+                <img src="IMAGE/Tater Skins.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Tater Skins</h3>
+                    <span class="item-price">$7.99</span></h3>
+                    <p class="item-desc"> it's ideal for sharing or diving into solo when you're truly hungry.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+
+        <div class="menu-item">
+                <img src="IMAGE/Boneless Buffalo Wings.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Boneless Buffalo Wings</h3>
+                    <span class="item-price">$7.99</span></h3>
+                    <p class="item-desc"> This appetizer allows you to pick between mild or hot sauces, and we opted for hot.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+        <div class="menu-item">
+                <img src="IMAGE/Cheese Fries.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Cheese Fries</h3>
+                    <span class="item-price">$5.99</span></h3>
+                    <p class="item-desc"> steak-cut fries topped with melted cheddar cheese and bacon bits.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+    </div>
+ 
+
+
+    <!-- TEXAS BBQ -->
+     <div id="texasbbq-content" class="menu-section hidden-section">
+     <div class="menu-item">
+                <img src="IMAGE/InterStellar BBQ.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>InterStellar BBQ</h3>
+                    <span class="item-price">$60</span></h3>
+                    <p class="item-desc">Don’t overlook the superb pimento cheese with green onions and a hint of sriracha.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+        <div class="menu-item">
+                <img src="IMAGE/GW’s BBQ.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>GW’s BBQ</h3>
+                    <span class="item-price">$29</span></h3>
+                    <p class="item-desc">The double-patty cheeseburger, inspired by a scene from the restaurant-set horror-comedy film The Menu, is phenomenal.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+
+        <div class="menu-item">
+                <img src="IMAGE/Redbird BBQ.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Redbird BBQ</h3>
+                    <span class="item-price">$20</span></h3>
+                    <p class="item-desc">Take-out smoked burgers are available for lunch on Wednesdays and dinner on Fridays.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+        <div class="menu-item">
+                <img src="IMAGE/Dayne’s Craft Barbecue.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Dayne’s Craft Barbecue</h3>
+                    <span class="item-price">$26</span></h3>
+                    <p class="item-desc">a Central Texas-style barbecue restaurant in Aledo, Texas, known for its high-quality, house-made meats and sides, which are cooked on 100% wood-fired offset smokers.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+    </div>
+
+
+
+    <!-- BEVERAGE -->
+    <div id="beverages-content" class="menu-section hidden-section">
+        <div class="menu-item">
+                <img src="IMAGE/Hurricane margarita.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Hurricane margarita</h3>
+                    <span class="item-price">$9.99</span></h3>
+                    <p class="item-desc">The Hurricane is a cyclone of flavors all mixed into one Texas-size schooner glass.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+        <div class="menu-item">
+                <img src="IMAGE/Jamaican Cowboy.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Jamaican Cowboy</h3>
+                    <span class="item-price">$11.99</span></h3>
+                    <p class="item-desc">the Jamaican Cowboy mixed up with the likes of other margarita beverages.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+         <div class="menu-item">
+                <img src="IMAGE/Soda.jpeg" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Soda</h3>
+                    <span class="item-price">$4.99</span></h3>
+                    <p class="item-desc">Soda including any brand.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+        <div class="menu-item">
+                <img src="IMAGE/Fruity raspberry margarita.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Fruity raspberry margarita</h3>
+                    <span class="item-price">$4.99</span></h3>
+                    <p class="item-desc">vibrant, refreshing cocktail that offers a delightful balance of sweet and tangy berry flavors with the classic zesty notes of a traditional margarita.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+    </div>
+
+
+    <!-- DESSERT -->
+     <div id="desserts-content" class="menu-section hidden-section">
+        <div class="menu-item">
+                <img src="IMAGE/Pecan Pie.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Pecan Pie</h3>
+                    <span class="item-price">$6.99</span></h3>
+                    <p class="item-desc">a quintessential American dessert featuring a mosaic of pecan halves.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+        <div class="menu-item">
+                <img src="IMAGE/Banana Pudding.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Banana Pudding</h3>
+                    <span class="item-price">$7.99</span></h3>
+                    <p class="item-desc">Banana pudding is a classic Southern American dessert consisting of alternating layers of sweet vanilla custard or instant pudding, sliced fresh bananas, and vanilla wafer cookies.</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+        <div class="menu-item">
+                <img src="IMAGE/Buttermilk Pie.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Buttermilk Pie</h3>
+                    <span class="item-price">$8.99</span></h3>
+                    <p class="item-desc">Buttermilk pie is a classic Southern dessert featuring a rich, velvety custard-like filling in a flaky, buttery pie crust</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+        <div class="menu-item">
+                <img src="IMAGE/Buttermilk Pie.webp" alt="Fountain Drink">
+                <div class="item-details">
+                    <h3>Granny's Apple Classic</h3>
+                    <span class="item-price">$12</span></h3>
+                    <p class="item-desc">a warm slice of apple pie served in a skillet, topped with vanilla ice cream and a drizzle of honey cinnamon caramel sauce</p>
+                    <button class="add-to-cart-btn">ADD TO CART</button>
+                </div>
+        </div>
+
+
+     </div>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Lonestar Bites. All Rights Reserved.</p>
+    </footer>
+
+     <script src="Menu.js"></script>
+</body>
+</html>
