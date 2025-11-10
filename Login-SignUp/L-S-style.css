@@ -294,3 +294,11 @@ button.ghost {
         margin: 10px;
     }
 }
+footer {
+    background-color: #2b1d0e;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+
+}
