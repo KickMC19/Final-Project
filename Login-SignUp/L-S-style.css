@@ -240,6 +240,29 @@ button.ghost {
     transform: translateX(20%);
 }
 
+#message{
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    display: none;
+    z-index: 1000;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+#message.show{
+    display: block;
+    opacity: 1;
+}
+#message.hide{
+    opacity: 0;
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
     .main-nav ul {
