@@ -5,28 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryLinks = document.querySelectorAll('.category-link');
     const menuSections = document.querySelectorAll('.menu-section');
 
-    // Function to switch categories
+   
     function switchCategory(event) {
-        event.preventDefault(); // Prevent link jump
+        event.preventDefault();
 
-        // Remove 'active' from all links and add to clicked link
         categoryLinks.forEach(link => link.classList.remove('active'));
         event.currentTarget.classList.add('active');
 
-        // Get target section ID from data-target
         const targetId = event.currentTarget.dataset.target;
 
-        // Hide all sections
         menuSections.forEach(section => section.classList.add('hidden-section'));
 
-        // Show the target section
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
             targetSection.classList.remove('hidden-section');
         }
     }
 
-    // Add click event listeners to all category links
     categoryLinks.forEach(link => link.addEventListener('click', switchCategory));
 });
 
