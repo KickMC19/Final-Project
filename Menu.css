@@ -72,6 +72,9 @@ body {
     .main-header {
         padding: 10px 20px;
     }
+    .menu-section{
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 768px) {
@@ -92,12 +95,17 @@ body {
     .logo, .order-button {
         margin: 10px;
     }
+    .menu-section{
+        grid-template-columns: 1fr;
+    }
 }
 
 /* FULL MENU LAYOUT */
 .menu-page {
     display: flex;
     min-height: 100vh;
+    justify-content: center;
+    background-color: #fff;
 }
 
 /* -- Menu Side Bar */
@@ -109,7 +117,7 @@ body {
 }
 
 .hidden-section {
-    display: none; 
+    display: none !important; 
 }
 
 .sidebar-heading {
@@ -150,35 +158,38 @@ body {
 .menu-content {
     flex-grow: 1;
     padding: 0;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px; 
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 25px; 
+    padding: 30px;
     background-color: #fff;
 }
 
-.menu-item img {
-    width: 100%;
-    max-height: 200px; 
-    object-fit: cover; 
-    display: block;
-}
+
 
 .menu-item {
     background-color: white;
-    border: 1px solid whitesmoke;
-    border-radius: 5px;
-    overflow: hidden; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;     
+    max-width: 300px;        
+    margin: 0 auto;
 }
 
 .item-details {
     background-color: #333;
     color: white;
-    padding: 15px;
+    padding: 15px 20px;
+    flex-grow: 1;
     text-align: center;
 }
 
@@ -274,3 +285,18 @@ footer {
     font-size: 0.9rem;
 
 }
+.menu-pic {
+    width: 80%;               
+    height: auto;            
+    display: block;
+    border-bottom: 1px solid #eee;
+    transition: transform 0.3s ease;
+}
+.menu-section{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+

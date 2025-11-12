@@ -1,37 +1,33 @@
 
 // Switching Categories
 document.addEventListener('DOMContentLoaded', () => {
+    // Select all category links and menu sections
     const categoryLinks = document.querySelectorAll('.category-link');
     const menuSections = document.querySelectorAll('.menu-section');
 
+    // Function to switch categories
     function switchCategory(event) {
-        
-        event.preventDefault();
-        
-        categoryLinks.forEach(link => {
-            
-            link.classList.remove('active');
-        });
+        event.preventDefault(); // Prevent link jump
 
+        // Remove 'active' from all links and add to clicked link
+        categoryLinks.forEach(link => link.classList.remove('active'));
         event.currentTarget.classList.add('active');
-        
-        const targetId = event.currentTarget.getAttribute('data-target');
-        
-        menuSections.forEach(section => {
-            section.classList.add('hidden-section');
-            section.classList.remove('active-section'); // Remove visible state if present
-        });
-        
+
+        // Get target section ID from data-target
+        const targetId = event.currentTarget.dataset.target;
+
+        // Hide all sections
+        menuSections.forEach(section => section.classList.add('hidden-section'));
+
+        // Show the target section
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
             targetSection.classList.remove('hidden-section');
-            targetSection.classList.add('active-section');
         }
     }
 
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', switchCategory);
-    });
+    // Add click event listeners to all category links
+    categoryLinks.forEach(link => link.addEventListener('click', switchCategory));
 });
 
 

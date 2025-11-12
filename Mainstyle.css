@@ -95,7 +95,7 @@ body {
     }
 }
 .welcome {
-    background: url('IMAGE/restaurant-bg.jpg') center/cover no-repeat;
+    background: url('IMAGE/restaurant.webp') center/cover no-repeat;
     height: 90vh;
     display: flex;
     align-items: center;
