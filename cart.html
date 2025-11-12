@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <header class="main-header">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <img src="IMAGE/Logo.jpg" alt="Logo">
+        </div>
+
+    <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="Menu.html">MENU</a></li>
+                <li><a href="#">Review</a></li>
+                <li><a href="Login-SignUp/login-signUp.html">LOGIN/SIGNUP</a></li>
+            </ul>
+        </nav>
+
+        <!-- ORDER/CART BUTTON -->
+        <div class="order-actions"> 
+    
+    <a href="cart.html" class="cart-icon-link active">
+        <span class="cart-count">0</span> <span class="cart-icon">🛍️</span>
+    </a>
+    
+    <div class="order-button">
+        <a href="#" class="btn">ORDER NOW</a>
+    </div>
+</div>
+    </header>
+
+<!-- The Cart -->
+ <main class="cart-container">
+    <h1 class="cart-heading">Your Cart (<span id="item-count-display">0</span> items)</h1>
+
+    <!-- Cart Sub Titles -->
+     <div class="cart-wrapper">
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th class="item-header">Item</th>
+                    <th class="price-header">Price</th>
+                    <th class="quantity-header">Quantity</th>
+                    <th class="total-header">Total</th>
+                </tr>
+             </thead>
+
+            <!-- Cart List -->
+             <tbody id="cart-item-list">
+                    <tr>
+                        <td class="item-details-cell">
+                            <div class="item-info">
+                                <img src="IMAGE/Kincaid’s Hamburgers.webp" alt="Item Image" class="item-image">
+                                <div class="item-text">
+                                    <p class="item-name">Kincaid’s Hamburgers</p>
+                                    <p class="item-options">Extra cheese, no onions</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="item-price-cell">$7.65</td>
+                        <td class="item-quantity-cell">
+                            
+                            <!-- Quantity Controls -->
+                            <div class="quantity-controls">
+                                <button class="quantity-btn decrease">-</button>
+                                <input type="number" value="1" min="1" class="quantity-input">
+                                <button class="quantity-btn increase">+</button>
+                            </div>
+                        </td>
+                        <td class="item-total-cell">$7.65 <span class="remove-item">×</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Total Cost Summary -->
+         <div class="cart-summary">
+
+            <!-- Sub Total -->
+            <div class="summary-line">
+                <span>Subtotal:</span>
+                <span id="subtotal-display">$0.00</span>
+            </div>
+
+            <!-- Tax total -->
+            <div class="summary-line">
+                <span>Sales Tax:</span>
+                <span id="Tax-display">$0.00</span>
+            </div>
+
+            <!-- Coupen -->
+            <div class="summary-line">
+                <span>Coupen Code:</span>
+                <input type="text" id="coupon-input" placeholder="Enter code">
+            </div>
+
+            <!-- Tip -->
+            <div class="tip-section">
+                <h4 class="tip-heading">Add a Tip:</h4>
+                
+                <input type="number" id="custom-tip-input" placeholder="Enter Amount" min="0" step="0.01">
+
+                <div class="summary-line tip-amount-line">
+                    <span>Tip Amount:</span>
+                    <span id="tip-display">$0.00</span>
+                </div>
+            </div>
+            <!-- Grand Total -->
+            <div class="summary-line grand-total-line">
+                <span>Grand total:</span>
+                <span id="grandtotal-display">$0.00</span>
+            </div>
+
+            <!-- Checkout -->
+             <button class="checkout-btn">Check Out</button>
+         </div>
+
+ </main>
+ <footer>
+      <p>© 2025 Lonestar Bites. All Rights Reserved.</p>
+  </footer>
+
+   <script src="cart.js"></script>
+</body>
+</html>
