@@ -5,7 +5,7 @@ body {
     font-family: 'Georgia', serif;
 }
 
-/* NAVIGATION */
+/* Nav */
 .main-header {
     background-color: black;
     display: flex;
@@ -15,12 +15,12 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0, 0.2);
 }
 
-/* LOGO */
+/* logo */
 .logo img{
     height: 80px;
 }
 
-/* NAVIGATION */
+/* Nav */
 .main-nav ul{
     list-style: none;
     margin: 0;
