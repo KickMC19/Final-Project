@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+const navLogin = document.getElementById("nav-login");
+if (navLogin) {
+    const loggedIn = localStorage.getItem("loggedInUser") !== null;
+    if (loggedIn) {
+        navLogin.textContent = "ACCOUNT";
+        navLogin.href = "/account/account.html";
+    } else {
+        navLogin.textContent = "LOGIN / SIGNUP";
+        navLogin.href = "/Login-SignUp/login-signUp.html";
+    }
+}
+
     // --- PART 1: Cart Initialization & Count Update (UNCHANGED) ---
     
     const cartCountElement = document.querySelector('.cart-count');
@@ -94,4 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryLinks.forEach(link => {
         link.addEventListener('click', switchCategory);
     });
+});
+
+window.addEventListener('load', () => {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    const isLoginPage = window.location.pathname.toLowerCase().includes("login-signup.html");
+    if(loggedInUser && isLoginPage){
+        window.location.href = "/account.account.html";
+    }
 });

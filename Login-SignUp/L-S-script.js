@@ -74,7 +74,8 @@ loginForm.addEventListener('submit', (e) => {
 
 window.addEventListener('load', () => {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    if(loggedInUser){
-        window.location.href = '/account/account.html';
+    const isLoginPage = window.location.pathname.toLowerCase().includes("login-signup.html");
+    if(loggedInUser && isLoginPage){
+        window.location.href = "/Account.account.html";
     }
 });
