@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Manager</title>
+    <link rel="stylesheet" href="manager.css">
+</head>
+<body>
+    <header>
+        <h1>Menu Manager</h1>
+    </header>
+
+    <section class="manager-controls">
+        <h2>Add New Menu Item</h2>
+        <label>Category:
+            <select id="category-select">
+                <option value="burgers-content">Burgers</option>
+                <option value="appetizers-content">Appetizers</option>
+                <option value="texasbbq-content">Steaks</option>
+                <option value="beverages-content">Beverages</option>
+                <option value="desserts-content">Desserts</option>
+            </select>
+        </label>
+        <input type="text" id="item-name" placeholder="Item Name">
+        <input type="number" id="item-price" placeholder="Price" step="0.01" min="0">
+        <input type="text" id="item-desc" placeholder="Description">
+        <input type="text" id="item-img" placeholder="Image URL">
+        <button id="add-item-btn">Add Item</button>
+    </section>
+
+    <section class="menu-preview">
+        <h2>Menu Preview</h2>
+        <div id="burgers-content" class="menu-section">
+            <h3>Burgers</h3>
+        </div>
+        <div id="appetizers-content" class="menu-section">
+            <h3>Appetizers</h3>
+        </div>
+        <div id="texasbbq-content" class="menu-section">
+            <h3>Steaks</h3>
+        </div>
+        <div id="beverages-content" class="menu-section">
+            <h3>Beverages</h3>
+        </div>
+        <div id="desserts-content" class="menu-section">
+            <h3>Desserts</h3>
+        </div>
+    </section>
+
+    <script src="manager.js"></script>
+</body>
+</html>
