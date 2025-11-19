@@ -329,3 +329,11 @@ line-height: 1;
 .checkout-btn:hover {
     background-color: #cc0000; 
 }
+
+footer {
+    background-color: #2b1d0e;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+}
