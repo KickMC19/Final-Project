@@ -9,7 +9,7 @@ if(!loggedInUser){
     if(loggedInUser.profilePic){
         document.getElementById('profileImage').src = loggedInUser.profilePic
     }
-    loadOrders();
+    loadOrders(); 
 }
 
 document.getElementById('signOutBtn').addEventListener('click', () => {
@@ -62,7 +62,60 @@ function updateUserInStorage() {
     localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
 }
 
+
+//Seeing Past Orders
+function formatCurrency(amount) {
+    return `$${(amount).toFixed(2)}`;
+}
+
 function loadOrders() {
     const ordersList = document.getElementById("ordersList")
-    ordersList.innerHTML = `<p class="empty-orders">You have no orders yet.</p>`
+    const allUserOrders = JSON.parse(localStorage.getItem('allUserOrders')) || {};
+    
+    
+    if (!loggedInUser || !loggedInUser.email) {
+        ordersList.innerHTML = `<p class="empty-orders">Please log in to view your orders.</p>`;
+        return;
+    }
+
+    
+    const userOrders = allUserOrders[loggedInUser.email] || [];
+
+    if (userOrders.length === 0) {
+        ordersList.innerHTML = `<p class="empty-orders">You have no orders yet.</p>`;
+        return;
+    }
+
+    
+    ordersList.innerHTML = ''; 
+
+    userOrders.forEach(order => {
+        const orderCard = document.createElement('div');
+        orderCard.classList.add('order-card');
+        
+        
+        let itemListHTML = order.items.map(item => 
+            `<p class="order-item">${item.quantity}x ${item.name} (${formatCurrency(item.price * item.quantity)})</p>`
+        ).join('');
+        
+        
+        orderCard.innerHTML = `
+            <div class="order-header">
+                <span class="order-id-display">Order ${order.id}</span>
+                <span class="order-date">${order.date}</span>
+            </div>
+            
+            <div class="order-details">
+                <p class="order-total-line"><strong>Total:</strong> ${formatCurrency(order.total)}</p>
+                <div class="order-items-list">
+                    <h4>Items Ordered:</h4>
+                    ${itemListHTML}
+                </div>
+            </div>
+            <button class="view-details-btn">Re-Order</button>
+            <hr>
+        `;
+
+        ordersList.appendChild(orderCard);
+    });
 }
