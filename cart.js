@@ -2,12 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // DOM ELEMENT SELECTORS & INITIALIZATION
     
-
-    
     const cartView = document.getElementById('cart-view');
     const receiptView = document.getElementById('receipt-view');
-
-    
     const cartList = document.getElementById('cart-item-list');
     const subtotalDisplay = document.getElementById('subtotal-display');
     const taxDisplay = document.getElementById('tax-display');
@@ -16,9 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemCountDisplay = document.getElementById('item-count-display');
     const customTipInput = document.getElementById('custom-tip-input');
     const checkoutBtn = document.querySelector('.checkout-btn');
-   
-
-    
     const receiptItemsList = document.getElementById('receipt-items-list');
     const receiptSubtotal = document.getElementById('receipt-subtotal');
     const receiptTax = document.getElementById('receipt-tax');
@@ -26,26 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const receiptGrandtotal = document.getElementById('receipt-grandtotal');
     const orderIdDisplay = document.getElementById('order-id');
 
-    
     const TAX_RATE = 0.08; 
     let cart = JSON.parse(localStorage.getItem('restaurantCart')) || [];
 
 
-    
     // UTILITY AND CALCULATION FUNCTIONS
-   
-
+    
     function formatCurrency(amount) {
         return `$${amount.toFixed(2)}`;
     }
 
     function calculateTotals() {
         let subtotal = 0;
-        
-        
-        cart.forEach(item => {
-            subtotal += item.price * item.quantity;
-        });
+        cart.forEach(item => { subtotal += item.price * item.quantity; });
 
         const tipAmount = parseFloat(customTipInput.value) || 0;
         const taxAmount = subtotal * TAX_RATE;
@@ -68,11 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-    
     // RENDER FUNCTION 
-    
-
     function renderCart() {
         cartList.innerHTML = ''; 
         
@@ -119,26 +101,26 @@ document.addEventListener('DOMContentLoaded', () => {
         saveCart(); 
     }
 
-
-    
     // EVENT HANDLERS (Quantity & Remove)
-    
-    
     function handleQuantityChange(event) {
         const target = event.target;
         
-        if (!target.classList.contains('quantity-btn')) {
-            return;
-        }
-        
-        const index = parseInt(target.getAttribute('data-index'));
+        if (target.classList.contains('quantity-btn')) {
+            const index = parseInt(target.getAttribute('data-index'));
 
-        if (target.classList.contains('increase')) {
-            cart[index].quantity++;
-        } else if (target.classList.contains('decrease') && cart[index].quantity > 1) {
-            cart[index].quantity--;
+            if (target.classList.contains('increase')) {
+                cart[index].quantity++;
+            } else if (target.classList.contains('decrease') && cart[index].quantity > 1) {
+                cart[index].quantity--;
+            }
+        } 
+        else if (target.classList.contains('quantity-input')) {
+            const index = parseInt(target.getAttribute('data-index'));
+            const newQuantity = parseInt(target.value);
+            if (!isNaN(newQuantity) && newQuantity >= 1) {
+                 cart[index].quantity = newQuantity;
+            }
         }
-        
         renderCart();
     }
     
@@ -151,10 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
     // CHECKOUT & VIEW TOGGLE LOGIC 
-    
-
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) {
             alert("Your cart is empty. Please add items before checking out.");
@@ -165,7 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const { subtotal, taxAmount, tipAmount, grandTotal } = calculateTotals();
         
         
-        orderIdDisplay.textContent = Math.floor(Math.random() * 900000) + 100000;
+        const orderId = Math.floor(Math.random() * 900000) + 100000;
+        orderIdDisplay.textContent = orderId;
         receiptSubtotal.textContent = formatCurrency(subtotal);
         receiptTax.textContent = formatCurrency(taxAmount);
         receiptTip.textContent = formatCurrency(tipAmount);
@@ -184,11 +164,38 @@ document.addEventListener('DOMContentLoaded', () => {
             receiptItemsList.appendChild(itemDiv);
         });
 
+        //Sending past orders to account
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
         
-        cart = []; 
+        if (loggedInUser && loggedInUser.email) {
+            
+            const allUserOrders = JSON.parse(localStorage.getItem('allUserOrders')) || {};
+            const userEmail = loggedInUser.email;
+            
+            if (!allUserOrders[userEmail]) {
+                allUserOrders[userEmail] = [];
+            }
+
+            const newOrder = {
+                id: `#${orderId}`,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                items: JSON.parse(JSON.stringify(cart)), // Use cart BEFORE clearing
+                subtotal: subtotal,
+                tax: taxAmount,
+                tip: tipAmount,
+                total: grandTotal
+            };
+            
+            allUserOrders[userEmail].unshift(newOrder); 
+            localStorage.setItem('allUserOrders', JSON.stringify(allUserOrders));
+        }
+        // =======================================================
+
+        
+        cart = []; // Now safe to clear cart after saving order
         localStorage.removeItem('restaurantCart'); 
         
-
+        
         cartView.style.display = "none";
         receiptView.style.display = "block";
         
@@ -196,10 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.cart-count').textContent = 0;
     });
 
-
     
     // INITIALIZATION
-    
     
     renderCart();
 
