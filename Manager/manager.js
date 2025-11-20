@@ -1,3 +1,9 @@
+const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"))
+if(!loggedInUser || loggedInUser.email !== "manager@lonestar.com"){
+    alert("You do not have permission to access this page.")
+    window.location.href = "/Login-SignUp/login-signUp.html"
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 const navLogin = document.getElementById("nav-login");
 if (navLogin) {
@@ -50,7 +56,7 @@ const itemPriceInput = document.getElementById('item-price')
 const itemDescInput = document.getElementById('item-desc')
 const itemImageInput = document.getElementById('item-image')
 const catagorySelect = document.getElementById('item-catagory')
-const menuPreviewm = document.getElementById('menu-preview')
+const menuPreview = document.getElementById('menu-preview')
 
 let menuItems = []
 
@@ -95,5 +101,4 @@ addBtn.addEventListener('click', () => {
 
     renderMenu()
 })
-
 renderMenu()

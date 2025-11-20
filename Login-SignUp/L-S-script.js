@@ -7,6 +7,15 @@ const loginForm = document.getElementById('loginForm');
 const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 const users = [...storedUsers];
 
+if(!users.find(u => u.email === "manager@lonestar.com")){
+    users.push({
+        name: "manager",
+        email: "manager@lonestar.com",
+        password: "manager123"
+    })
+    localStorage.setItem("users", JSON.stringify(users))
+}
+
 const messageBox = document.createElement('div');
 messageBox.id = 'message';
 document.body.appendChild(messageBox);
@@ -58,19 +67,38 @@ loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = loginForm.querySelector('input[placeholder="Email"]').value.trim();
     const password = loginForm.querySelector('input[placeholder="Password"]').value.trim();
-    const user = users.find(u => u.email === email && u.password === password);
-
+    const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
     if(user){
-        showMessage(`Welcome back, ${user.name}.`, 1000);
-        loginForm.reset();
-        localStorage.setItem('loggedInUser', JSON.stringify(user));
-        setTimeout(() => {
-            window.location.href = '/account/account.html';
-        }, 1000);
-    } else {
-        showMessage('Invalid email or password. Please try again.', 1000);
+        if(user.email.toLowerCase() === "manager@lonestar.com"){
+            if(password.toLowerCase() === user.password.toLowerCase()){
+                userLoggedIn(user)
+            }else{
+                showMessage('Invalid email or password. Please try again.', 1000)
+            }
+        }else{
+            if(password === user.password){
+                userLoggedIn(user)
+            }else{
+                showMessage('Invalid email or password. Please try again.', 1000)
+            }
+        }
+    }else{
+        showMessage('Invalid email or password. Please try again.', 1000)
     }
-});
+})
+
+function userLoggedIn(user){
+    showMessage(`Welcome back, ${user.name}.`, 1000)
+    loginForm.reset()
+    localStorage.setItem('loggedInUser', JSON.stringify(user))
+    setTimeout(() => {
+       if(user.email.toLowerCase() === "manager@lonestar.com"){
+            window.location.href = '/Manager/manager.html'
+        }else{
+            window.location.href = '/account/account.html'
+        }
+    }, 1000);
+}
 
 window.addEventListener('load', () => {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
