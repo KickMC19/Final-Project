@@ -75,6 +75,13 @@ header h1 {
     padding: 20px;
     margin-bottom: 40px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+menu-section .menu-item {
+    width: 100%;
 }
 
 .menu-section h3 {
