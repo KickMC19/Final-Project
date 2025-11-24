@@ -61,6 +61,7 @@ body {
     background-color: darkred;
 }
 
+
 /* TAB SIZE ADJUSTMENT */
 @media (max-width: 900px) {
     .main-nav ul {
@@ -92,6 +93,38 @@ body {
     .logo, .order-button {
         margin: 10px;
     }
+}
+
+.cart-icon-link {
+    text-decoration: none;
+    position: relative;
+    color: white;
+    font-size: 1.6em;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+
+.cart-icon-link:hover {
+font-size: 1.5em;
+line-height: 1;
+
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 0.75em;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 3px 6px;
+    min-width: 15px;
+    text-align: center;
+    border: 1px solid black;
+    line-height: 1;
 }
 
 .account-container{
