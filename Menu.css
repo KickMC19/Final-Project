@@ -188,8 +188,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;     
-    max-width: 300px;        
-    margin: 0 auto;
+    width: 100%;     
 }
 
 .item-details {
@@ -201,9 +200,8 @@ body {
 }
 
 .item-details h3 {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: flex-start;
+    display: block; 
+    text-align: center;
     margin-top: 0;
     font-size: 1.1em;
     text-decoration: uppercase;
@@ -303,6 +301,11 @@ footer {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
-    justify-content: center;
 }
-
+.menu-section .menu-item{
+    flex: 0 0 calc(33.333% - 20px);
+    box-sizing: border-box;
+}
+.menu-section > h3 {
+    display: none; 
+}
