@@ -61,6 +61,7 @@ body {
     background-color: darkred;
 }
 
+
 /* TAB SIZE ADJUSTMENT */
 @media (max-width: 900px) {
     .main-nav ul {
