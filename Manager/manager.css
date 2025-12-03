@@ -153,6 +153,22 @@ menu-section .menu-item {
         margin-bottom: 10px;
     }
 }
+.main-header {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0, 0.2);
+}
+
+
+/* LOGO */
+.logo img{
+    height: 80px;
+}
+
+/* NAVIGATION */
 .main-nav{
     display: flex;
     align-items: center;
@@ -199,19 +215,41 @@ menu-section .menu-item {
 .order-button .btn:hover {
     background-color: darkred;
 }
-.main-header {
-    background-color: black;
+
+.order-action {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 40px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0, 0.2);
+    gap: 20px;
 }
-.h1{
+
+.cart-icon-link {
+    text-decoration: none;
+    position: relative;
+    color: white;
+    font-size: 1.6em;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+
+.cart-icon-link:hover {
+font-size: 1.5em;
+line-height: 1;
+
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 0.75em;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 3px 6px;
+    min-width: 15px;
     text-align: center;
-    
-}
-/* LOGO */
-.logo img{
-    height: 80px;
+    border: 1px solid black;
+    line-height: 1;
 }
