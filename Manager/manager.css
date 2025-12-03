@@ -253,3 +253,11 @@ line-height: 1;
     border: 1px solid black;
     line-height: 1;
 }
+
+footer {
+    background-color:#000000; 
+    color:white; 
+    text-align:center; 
+    padding:1rem; 
+    font-size:0.9rem; 
+}
