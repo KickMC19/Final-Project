@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // DOM ELEMENT SELECTORS & INITIALIZATION
     
     const cartView = document.getElementById('cart-view');
     const receiptView = document.getElementById('receipt-view');
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = JSON.parse(localStorage.getItem('restaurantCart')) || [];
 
 
-    // UTILITY AND CALCULATION FUNCTIONS
     
     function formatCurrency(amount) {
         return `$${amount.toFixed(2)}`;
@@ -101,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
         saveCart(); 
     }
 
-    // EVENT HANDLERS (Quantity & Remove)
     function handleQuantityChange(event) {
         const target = event.target;
         
@@ -133,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // CHECKOUT & VIEW TOGGLE LOGIC 
+    
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) {
             alert("Your cart is empty. Please add items before checking out.");
@@ -189,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             allUserOrders[userEmail].unshift(newOrder); 
             localStorage.setItem('allUserOrders', JSON.stringify(allUserOrders));
         }
-        // =======================================================
+        
 
         
         cart = []; // Now safe to clear cart after saving order
@@ -204,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     
-    // INITIALIZATION
+   
     
     renderCart();
 

@@ -5,7 +5,7 @@ body {
     font-family: 'Georgia', serif;
 }
 
-/* Nav */
+
 .main-header {
     background-color: black;
     display: flex;
@@ -15,12 +15,12 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0, 0.2);
 }
 
-/* logo */
+
 .logo img{
     height: 80px;
 }
 
-/* Nav */
+
 .main-nav{
     display: flex;
     align-items: center;
@@ -68,7 +68,7 @@ body {
     background-color: darkred;
 }
 
-/* TAB SIZE ADJUSTMENT */
+
 @media (max-width: 900px) {
     .main-nav ul {
         gap: 15px; 
@@ -102,7 +102,7 @@ body {
 }
 
 
-/* CART */
+
 .order-action {
     display: flex;
     align-items: center;
@@ -142,7 +142,7 @@ line-height: 1;
 }
 
 
-/* CART LAYOUT */
+
 .cart-container {
     display: block; 
     max-width: 1100px;
@@ -158,7 +158,7 @@ line-height: 1;
     text-align: left;
 }
 
-/* Table Header Styling */
+
 .cart-table th {
     padding: 15px 0;
     border-bottom: 2px solid #ddd;
@@ -174,7 +174,7 @@ line-height: 1;
     vertical-align: middle;
 }
 
-/* Sub Title Widths */
+
 .item-header { 
   width: 45%; 
 
@@ -190,7 +190,7 @@ line-height: 1;
 
 }
 
-/* Item Details Cell */
+
 .item-info {
     display: flex;
     align-items: center;
@@ -216,7 +216,7 @@ line-height: 1;
     margin: 5px 0 0;
 }
 
-/* Quantity Controls */
+
 .quantity-controls {
     display: flex;
     align-items: center;
@@ -247,7 +247,7 @@ line-height: 1;
     margin-left: 10px;
 }
 
-/* ORDER SUMMARY */
+
 .cart-summary {
     flex: 1; 
     background-color: #fff;
@@ -264,7 +264,7 @@ line-height: 1;
 }
 
 
-/* Coupon Input Styling */
+
 .coupon-line {
     align-items: center;
     padding-bottom: 10px;
@@ -279,7 +279,7 @@ line-height: 1;
     font-size: 0.9em;
 }
 
-/* Tip Section Styling */
+
 .tip-section {
     padding: 15px 0;
     border-top: 1px dashed #eee;
@@ -295,7 +295,7 @@ line-height: 1;
     text-align: left;
 }
 
-/* Custom Tip Input Styling */
+
 #custom-tip-input {
     width: 100%; 
     padding: 8px;
@@ -311,7 +311,7 @@ line-height: 1;
     padding-bottom: 0;
 }
 
-/* Grand Total Styling */
+
 .grand-total-line {
     border-top: 2px solid #333;
     font-size: 1.2em;
@@ -320,7 +320,7 @@ line-height: 1;
     margin-top: 5px;
 }
 
-/* Checkout Button */
+
 .checkout-btn {
     width: 100%;
     padding: 15px;
@@ -339,7 +339,7 @@ line-height: 1;
 }
 
 
-/* Receipt */
+
 .receipt-card {
     
     width: 100%;
@@ -382,7 +382,7 @@ line-height: 1;
     margin-bottom: 15px;
 }
 
-/* Item List Styling */
+
 .receipt-items {
     text-align: left;
     margin-bottom: 15px;
@@ -401,7 +401,7 @@ line-height: 1;
     color: #333;
 }
 
-/* Totals Styling */
+
 .receipt-totals {
     text-align: left;
     margin-bottom: 20px;
@@ -422,7 +422,7 @@ line-height: 1;
     color: #cc0000;
 }
 
-/* Action Buttons */
+
 .print-btn {
     width: 100%;
     padding: 12px;
@@ -451,7 +451,7 @@ line-height: 1;
     display: none;
 }
 
-/* FOOTER */
+
 footer {
     background-color: #2b1d0e;
     color: white;

@@ -72,7 +72,7 @@ ul {
 .images img:hover {
     transform: scale(1.1);
 }
-/* MAIN HEADER */
+
 .main-header {
     background-color: black;
     display: flex;
@@ -83,12 +83,12 @@ ul {
 }
 
 
-/* LOGO */
+
 .logo img{
     height: 80px;
 }
 
-/* NAVIGATION */
+
 .main-nav{
     display: flex;
     align-items: center;
@@ -136,7 +136,7 @@ ul {
     background-color: darkred;
 }
 
-/* CART */
+
 .order-action {
     display: flex;
     align-items: center;
@@ -175,7 +175,7 @@ line-height: 1;
     line-height: 1;
 }
 
-/* TAB SIZE ADJUSTMENT */
+
 @media (max-width: 900px) {
     .main-nav ul {
         gap: 15px; 
