@@ -44,11 +44,15 @@
         <div class="cart-wrapper">
             <table class="cart-table">
                 <thead>
+                    <table class="cart-table">
+                <thead>
                     <tr>
-                        <th class="item-header">Item</th>
-                        <th class="price-header">Price</th>
-                        <th class="quantity-header">Quantity</th>
-                        <th class="total-header">Total</th>
+                        <th>Photo</th>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="cart-item-list">
@@ -67,9 +71,17 @@
                 <span id="tax-display">$0.00</span>
             </div>
 
-            <div class="summary-line">
-                <span>Coupen Code:</span>
-                <input type="text" id="coupon-input" placeholder="Enter code">
+            <div class="summary-line coupon-input-line">
+                <span>Coupon Code:</span>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                    <input type="text" id="coupon-input" placeholder="Enter code">
+                    <button id="apply-coupon-btn">Apply</button>
+                </div>
+            </div>
+
+            <div class="summary-line discount-line" id="discount-line" style="display: none;">
+                <span id="discount-label">Coupon Discount:</span>
+                <span id="discount-display">-$0.00</span>
             </div>
 
             <div class="tip-section">
@@ -112,6 +124,12 @@
                     <span>Subtotal:</span>
                     <span id="receipt-subtotal">$0.00</span>
                 </div>
+
+                <div class="summary-line" id="receipt-discount-line" style="display: none;">
+                    <span id="receipt-discount-label">Coupon Discount:</span>
+                    <span id="receipt-discount-display">-$0.00</span>
+                </div>
+
                 <div class="summary-line">
                     <span>Sales Tax:</span>
                     <span id="receipt-tax">$0.00</span>
