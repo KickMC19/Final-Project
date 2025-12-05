@@ -4,7 +4,7 @@ body {
     font-family: 'Georgia', serif;
 }
 
-/* NAVIGATION */
+
 .main-header {
     background-color: black;
     display: flex;
@@ -15,12 +15,12 @@ body {
 }
 
 
-/* LOGO */
+
 .logo img{
     height: 80px;
 }
 
-/* NAVIGATION */
+
 .main-nav{
     display: flex;
     align-items: center;
@@ -68,7 +68,7 @@ body {
     background-color: darkred;
 }
 
-/* TAB SIZE ADJUSTMENT */
+
 @media (max-width: 900px) {
     .main-nav ul {
         gap: 15px; 
@@ -107,7 +107,7 @@ body {
     }
 }
 
-/* FULL MENU LAYOUT */
+
 .menu-page {
     display: flex;
     min-height: 100vh;
@@ -115,7 +115,7 @@ body {
     background-color: #fff;
 }
 
-/* -- Menu Side Bar */
+
 .menu-sidebar {
     width: 250px;
     background-color: orange;
@@ -161,7 +161,7 @@ body {
     background-color: #ff6347; 
 }
 
-/* RIGHT SIDE MENU/ Item Grid */
+
 .menu-content {
     flex-grow: 1;
     padding: 0;
@@ -243,7 +243,7 @@ body {
     background-color: #a30000; 
 }
 
-/* CART */
+
 .order-action {
     display: flex;
     align-items: center;

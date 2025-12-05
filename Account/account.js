@@ -66,7 +66,7 @@ function loadOrders() {
 }
 
 
-// RE-ORDER FUNCTIONALITY LISTENER
+// Re-order
 const ordersList = document.getElementById("ordersList");
 
 if (ordersList) {

@@ -1,4 +1,4 @@
-/* GENERAL BODY */
+
 body {
     margin: 0;
     font-family: 'Georgia', serif;
@@ -9,7 +9,7 @@ body {
     background-attachment: fixed;
 }
 
-/* HEADER */
+
 header h1 {
     text-align: center;
     font-size: 2.5rem;
@@ -18,7 +18,7 @@ header h1 {
     margin-bottom: 40px;
 }
 
-/* MANAGER CONTROLS */
+
 .manager-controls {
     background-color: rgba(0,0,0,0.5);
     padding: 20px;
@@ -163,12 +163,12 @@ menu-section .menu-item {
 }
 
 
-/* LOGO */
+
 .logo img{
     height: 80px;
 }
 
-/* NAVIGATION */
+
 .main-nav{
     display: flex;
     align-items: center;

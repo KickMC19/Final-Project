@@ -4,7 +4,7 @@ body {
     background-color: white;
     font-family: 'Georgia', serif;
 }
-/* MAIN HEADER */
+
 .main-header {
     background-color: black;
     display: flex;
@@ -15,12 +15,12 @@ body {
 }
 
 
-/* LOGO */
+
 .logo img{
     height: 80px;
 }
 
-/* NAVIGATION */
+
 .main-nav{
     display: flex;
     align-items: center;
@@ -69,7 +69,7 @@ body {
 }
 
 
-/* TAB SIZE ADJUSTMENT */
+
 @media (max-width: 900px) {
     .main-nav ul {
         gap: 15px; 

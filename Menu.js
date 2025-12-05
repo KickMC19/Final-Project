@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- CART SETUP ---
+    
     const cartCountElement = document.querySelector('.cart-count');
     let cart = JSON.parse(localStorage.getItem('restaurantCart')) || [];
 
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateCartCount();
 
-    // --- MENU DATA & RENDERING ---
+    
     let menuData = JSON.parse(localStorage.getItem("menuData")) || {
         "burgers-content": [ { name: "Kincaid’s Hamburgers", price: 7.65, desc: "A basic but a classic!!", img: "/IMAGE/cheeseburger.png" },
         { name: "Brisket Burger", price: 11.99, desc: "Smoked brisket burger with American cheese on a brioche bun.", img: "/IMAGE/brisket_burger.png" },
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         attachAddToCart();
     }
 
-    // --- ADD TO CART LOGIC ---
+    
     function attachAddToCart() {
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
         addToCartButtons.forEach(button => {
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderMenu();
 
-    // --- CATEGORY SWITCHING ---
+    
     const categoryLinks = document.querySelectorAll('.category-link');
     const menuSections = document.querySelectorAll('.menu-section');
 

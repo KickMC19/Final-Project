@@ -5,7 +5,7 @@ body {
     font-family: 'Georgia', serif;
 }
 
-/* HEADER */
+
 .main-header {
     background-color: black;
     display: flex;
@@ -207,7 +207,7 @@ button.ghost {
     transform: translateX(20%); 
 }
 
-/* MESSAGE BOX */
+
 #message { 
     position: fixed; 
     top:10px; left:50%; 
@@ -230,7 +230,7 @@ button.ghost {
     opacity:0; 
 }
 
-/* RESPONSIVE */
+
 @media (max-width: 768px) {
     .main-header { 
         flex-wrap: wrap; 
