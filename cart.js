@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyCouponBtn = document.getElementById('apply-coupon-btn');
     const discountLine = document.getElementById('discount-line');
     const discountDisplay = document.getElementById('discount-display');
+
+    
+    const orderTypeInputs = document.querySelectorAll('input[name="orderType"]');
+    
     
     const receiptItemsList = document.getElementById('receipt-items-list');
     const receiptSubtotal = document.getElementById('receipt-subtotal');
@@ -23,11 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const receiptTip = document.getElementById('receipt-tip');
     const receiptGrandtotal = document.getElementById('receipt-grandtotal');
     const orderIdDisplay = document.getElementById('order-id');
+    const receiptOrderTypeDisplay = document.getElementById('receipt-order-type'); // NEW: Receipt display element
 
+    
     const receiptDiscountLine = document.getElementById('receipt-discount-line');
     const receiptDiscountDisplay = document.getElementById('receipt-discount-display');
     const receiptDiscountLabel = document.getElementById('receipt-discount-label');
 
+    
     const cartCountElement = document.querySelector('.cart-count');
 
     const TAX_RATE = 0.08; 
@@ -39,6 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     let appliedCoupon = JSON.parse(localStorage.getItem('appliedCoupon')) || null;
 
+   
+    let selectedOrderType = localStorage.getItem('orderType') || 'Pickup';
+
+    
     let finalSubtotal = 0;
     let finalTaxAmount = 0;
     let finalTipAmount = 0;
@@ -51,10 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateTotals() {
         let subtotal = 0;
-        let totalQuantity = 0;
+        let totalQuantity = 0; 
+        
+        
         cart.forEach(item => {
             subtotal += item.price * item.quantity;
-            totalQuantity += item.quantity;
+            totalQuantity += item.quantity; 
         });
 
         let couponDiscount = 0;
@@ -93,7 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
         taxDisplay.textContent = formatCurrency(taxAmount);
         tipDisplay.textContent = formatCurrency(tipAmount);
         grandtotalDisplay.textContent = formatCurrency(grandTotal);
-        itemCountDisplay.textContent = totalQuantity;
+        
+        
+        itemCountDisplay.textContent = totalQuantity; 
         cartCountElement.textContent = totalQuantity;
     }
 
@@ -165,12 +180,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
+
+    function handleOrderTypeChange(event) {
+        selectedOrderType = event.target.value;
+        localStorage.setItem('orderType', selectedOrderType);
+    }
+
+    
+    function initializeOrderType() {
+        orderTypeInputs.forEach(input => {
+            if (input.value === selectedOrderType) {
+                input.checked = true;
+            }
+            
+            input.addEventListener('change', handleOrderTypeChange);
+        });
+    }
+
+    
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) { alert("Your cart is empty."); return; }
 
         const orderId = Math.floor(Math.random() * 900000) + 100000;
         orderIdDisplay.textContent = orderId;
-
+        
+        
+        receiptOrderTypeDisplay.textContent = selectedOrderType;
+        
         receiptSubtotal.textContent = formatCurrency(finalSubtotal);
         if (finalDiscountAmount > 0) {
             receiptDiscountLabel.textContent = `${appliedCoupon.code} Discount:`;
@@ -204,16 +241,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 tip: finalTipAmount,
                 total: finalGrandTotal,
                 discount: finalDiscountAmount,
-                couponCode: appliedCoupon ? appliedCoupon.code : null
+                couponCode: appliedCoupon ? appliedCoupon.code : null,
+                orderType: selectedOrderType 
             };
             allUserOrders[userEmail].unshift(newOrder);
             localStorage.setItem('allUserOrders', JSON.stringify(allUserOrders));
         }
 
-        cart = [];
-        localStorage.removeItem('restaurantCart');
+        
+        cart = []; 
+        localStorage.removeItem('restaurantCart'); 
         localStorage.removeItem('appliedCoupon');
-
+        localStorage.removeItem('orderType'); 
+        
+        
         cartView.style.display = "none";
         receiptView.style.display = "block";
 
@@ -221,6 +262,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderCart();
+
+    
+    initializeOrderType();
+
+    
     cartList.addEventListener('click', handleQuantityChange);
     cartList.addEventListener('click', handleRemoveItem);
     customTipInput.addEventListener('input', calculateTotals);
