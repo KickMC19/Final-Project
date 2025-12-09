@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const loggedIn = localStorage.getItem("loggedInUser") !== null;
         if (loggedIn) {
             navLogin.textContent = "ACCOUNT";
-            navLogin.href = "../Account/account.html";
+            navLogin.href = "/Final-Project/Account/account.html";
         } else {
             navLogin.textContent = "LOGIN / SIGNUP";
-            navLogin.href = "../Login-SignUp/login-signUp.html";
+            navLogin.href = "/Final-Project/Login-SignUp/login-signUp.html";
         }
     }
 
@@ -143,6 +143,6 @@ window.addEventListener('load', () => {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     const isLoginPage = window.location.pathname.toLowerCase().includes("login-signup.html");
     if(loggedInUser && isLoginPage){
-        window.location.href = "../Account/account.html";
+        window.location.href = "/Final-Project/Account/account.html";
     }
 });
