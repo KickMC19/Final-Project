@@ -44,15 +44,13 @@
         <div class="cart-wrapper">
             <table class="cart-table">
                 <thead>
-                    <table class="cart-table">
-                <thead>
                     <tr>
                         <th>Photo</th>
                         <th>Item</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
-                        <th>Action</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody id="cart-item-list">
@@ -60,28 +58,42 @@
             </table>
         </div>
 
+
         <div class="cart-summary">
+            
+            <div class="summary-line order-type-selection">
+                <h4>Order Type:</h4>
+                <div class="delivery-options">
+                    <input type="radio" id="pickup" name="orderType" value="Pickup" checked>
+                    <label for="pickup">Pickup</label>
+                    <input type="radio" id="delivery" name="orderType" value="Delivery">
+                    <label for="delivery">Delivery</label>
+                </div>
+            </div>
+            
+            <hr class="summary-divider">
+
             <div class="summary-line">
                 <span>Subtotal:</span>
                 <span id="subtotal-display">$0.00</span>
             </div>
 
-            <div class="summary-line">
-                <span>Sales Tax:</span>
-                <span id="tax-display">$0.00</span>
+            <div class="summary-line" id="discount-line" style="display: none;">
+                <span id="discount-label">Coupon Discount:</span>
+                <span id="discount-display">-$0.00</span>
             </div>
+
 
             <div class="summary-line coupon-input-line">
                 <span>Coupon Code:</span>
-                <div style="display: flex; align-items: center; gap: 5px;">
-                    <input type="text" id="coupon-input" placeholder="Enter code">
-                    <button id="apply-coupon-btn">Apply</button>
-                </div>
+                <input type="text" id="coupon-input" placeholder="Enter code">
+                <button id="apply-coupon-btn" class="apply-coupon-btn">Apply</button>
             </div>
 
-            <div class="summary-line discount-line" id="discount-line" style="display: none;">
-                <span id="discount-label">Coupon Discount:</span>
-                <span id="discount-display">-$0.00</span>
+
+            <div class="summary-line">
+                <span>Sales Tax:</span>
+                <span id="tax-display">$0.00</span>
             </div>
 
             <div class="tip-section">
@@ -100,14 +112,16 @@
             </div>
 
             <button class="checkout-btn">Check Out</button>
-        </div>
-    </div>
-    </main>
+         </div>
 
- 
-          <div id="receipt-view" class="receipt-container-full">
+    </div>
+
+    <div id="receipt-view" class="receipt-view-container" style="display: none;">
         <div class="receipt-card">
-            <h1 class="confirmation-heading">✅ Order Confirmed!</h1>
+            <h1>Order Placed!</h1>
+            
+            <p class="order-type-display">Order Type: **<span id="receipt-order-type">Pickup</span>**</p>
+            
             <p class="order-time">Your order will be ready in approximately 20-25 minutes.</p>
             <p class="order-id">Order ID: **#<span id="order-id">000000</span>**</p>
             
@@ -150,6 +164,7 @@
     </div>
 
 
+ </main>
  <footer>
       <p>© 2025 Lonestar Bites. All Rights Reserved.</p>
   </footer>

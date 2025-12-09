@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyCouponBtn = document.getElementById('apply-coupon-btn');
     const discountLine = document.getElementById('discount-line');
     const discountDisplay = document.getElementById('discount-display');
+
+    
+    const orderTypeInputs = document.querySelectorAll('input[name="orderType"]');
     
     
     const receiptItemsList = document.getElementById('receipt-items-list');
@@ -27,13 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const receiptTip = document.getElementById('receipt-tip');
     const receiptGrandtotal = document.getElementById('receipt-grandtotal');
     const orderIdDisplay = document.getElementById('order-id');
+    const receiptOrderTypeDisplay = document.getElementById('receipt-order-type'); // NEW: Receipt display element
 
     
     const receiptDiscountLine = document.getElementById('receipt-discount-line');
     const receiptDiscountDisplay = document.getElementById('receipt-discount-display');
     const receiptDiscountLabel = document.getElementById('receipt-discount-label');
 
-    // Select the global cart count element in the header
+    
     const cartCountElement = document.querySelector('.cart-count');
     
     
@@ -46,6 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
         "SAVE10": { type: 'flat', value: 10.00, label: 'SAVE10 ($10 Off)' },
     };
     let appliedCoupon = JSON.parse(localStorage.getItem('appliedCoupon')) || null;
+
+   
+    let selectedOrderType = localStorage.getItem('orderType') || 'Pickup';
 
     
     let finalSubtotal = 0;
@@ -62,12 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateTotals() {
         let subtotal = 0;
-        let totalQuantity = 0; // NEW: Initialize total quantity
+        let totalQuantity = 0; 
         
         
         cart.forEach(item => {
             subtotal += item.price * item.quantity;
-            totalQuantity += item.quantity; // NEW: Sum up all item quantities
+            totalQuantity += item.quantity; 
         });
 
         
@@ -121,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tipDisplay.textContent = formatCurrency(tipAmount);
         grandtotalDisplay.textContent = formatCurrency(grandTotal);
         
-        // FIX: Update both displays with the total quantity
+        
         itemCountDisplay.textContent = totalQuantity; 
         cartCountElement.textContent = totalQuantity;
     }
@@ -226,6 +233,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+
+    function handleOrderTypeChange(event) {
+        selectedOrderType = event.target.value;
+        localStorage.setItem('orderType', selectedOrderType);
+    }
+
+    
+    function initializeOrderType() {
+        orderTypeInputs.forEach(input => {
+            if (input.value === selectedOrderType) {
+                input.checked = true;
+            }
+            
+            input.addEventListener('change', handleOrderTypeChange);
+        });
+    }
+
     
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) {
@@ -237,6 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const orderId = Math.floor(Math.random() * 900000) + 100000;
         orderIdDisplay.textContent = orderId;
         
+        
+        receiptOrderTypeDisplay.textContent = selectedOrderType;
         
         receiptSubtotal.textContent = formatCurrency(finalSubtotal);
         
@@ -285,9 +311,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 tax: finalTaxAmount,
                 tip: finalTipAmount,
                 total: finalGrandTotal,
-                
                 discount: finalDiscountAmount,
-                couponCode: appliedCoupon ? appliedCoupon.code : null
+                couponCode: appliedCoupon ? appliedCoupon.code : null,
+                orderType: selectedOrderType 
             };
             
             allUserOrders[userEmail].unshift(newOrder); 
@@ -297,7 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         cart = []; 
         localStorage.removeItem('restaurantCart'); 
-        localStorage.removeItem('appliedCoupon'); 
+        localStorage.removeItem('appliedCoupon');
+        localStorage.removeItem('orderType'); 
         
         
         cartView.style.display = "none";
@@ -310,6 +337,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     renderCart();
+
+    
+    initializeOrderType();
 
     
     cartList.addEventListener('click', handleQuantityChange);
