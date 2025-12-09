@@ -117,9 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
             cartList.innerHTML = '<tr><td colspan="6" class="empty-cart-message">Your cart is empty.</td></tr>';
         } else {
             cartList.innerHTML = cart.map((item, index) => {
-                const imagePath = item.imageSrc || 'IMAGE/placeholder.jpg'; // Use relative path
+                
                 return `<tr data-index="${index}">
-                    <td><img src="${imagePath}" alt="${item.name}" class="cart-item-img" style="width: 50px; height: 50px; object-fit: cover;"></td>
+                    
                     <td>${item.name}</td>
                     <td>${formatCurrency(item.price)}</td>
                     <td>
