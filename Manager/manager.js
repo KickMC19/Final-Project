@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (navLogin) {
         const loggedIn = !!loggedInUser;
         navLogin.textContent = loggedIn ? "ACCOUNT" : "LOGIN / SIGNUP";
-        navLogin.href = loggedIn ? "../account/account.html" : "../Login-SignUp/login-signUp.html";
+        navLogin.href = loggedIn ? "../Account/account.html" : "../Login-SignUp/login-signUp.html";
     }
 
     if (!loggedInUser || loggedInUser.email.toLowerCase() !== "manager@lonestar.com") {

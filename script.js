@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(navLogin){
         if(loggedInUser){
             navLogin.textContent = "ACCOUNT";
-            navLogin.href = "../account/account.html";
+            navLogin.href = "../Account/account.html";
         } else {
             navLogin.textContent = "LOGIN / SIGNUP";
             navLogin.href = "../Login-SignUp/login-signUp.html";
