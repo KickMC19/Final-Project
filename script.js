@@ -19,6 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if(loggedInUser && window.location.pathname.toLowerCase().includes("login-signup.html")){
-        window.location.href = loggedInUser.email.toLowerCase() === "manager@lonestar.com" ? '../Manager/manager.html' : '../account/account.html';
+        window.location.href = loggedInUser.email.toLowerCase() === "manager@lonestar.com" ? '../Manager/manager.html' : '../Account/account.html';
     }
 });
