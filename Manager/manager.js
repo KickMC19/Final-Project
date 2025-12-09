@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
-    const navManager = document.querySelector("a[href='/Manager/manager.html']");
+    const navManager = document.querySelector("a[href='Manager/manager.html']");
     const navLogin = document.getElementById("nav-login");
 
     if (navManager) {
@@ -15,15 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (navLogin) {
         const loggedIn = !!loggedInUser;
         navLogin.textContent = loggedIn ? "ACCOUNT" : "LOGIN / SIGNUP";
-        navLogin.href = loggedIn
-            ? "/account/account.html"
-            : "/Login-SignUp/login-signUp.html";
+        navLogin.href = loggedIn ? "../account/account.html" : "../Login-SignUp/login-signUp.html";
     }
 
     if (!loggedInUser || loggedInUser.email.toLowerCase() !== "manager@lonestar.com") {
-        if (window.location.pathname.toLowerCase().includes("/manager/manager.html")) {
+        if (window.location.pathname.toLowerCase().includes("manager.html")) {
             alert("You do not have permission to access this page.");
-            window.location.href = "/Login-SignUp/login-signUp.html";
+            window.location.href = "../Login-SignUp/login-signUp.html";
         }
     }
 
@@ -31,9 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!menu || Object.values(menu).every(arr => arr.length === 0)) {
         menu = {
             "burgers-content": [
-                { name: "Kincaid’s Hamburgers", price: 7.65, desc: "A basic but a classic!!", img: "/IMAGE/cheeseburger.png" },
-                { name: "Brisket Burger", price: 11.99, desc: "Smoked brisket burger with American cheese on a brioche bun.", img: "/IMAGE/brisket_burger.png" },
-                { name: "Jabs Smash Burgers", price: 12.99, desc: "Try out our newest addition to the menu, with bacon and onions over smashed beef.", img: "/IMAGE/smashburger3.jpg" },
+                { name: "Kincaid’s Hamburgers", price: 7.65, desc: "A basic but a classic!!", img: "../IMAGE/cheeseburger.png" },
+                { name: "Brisket Burger", price: 11.99, desc: "Smoked brisket burger with American cheese on a brioche bun.", img: "../IMAGE/brisket_burger.png" },
+                { name: "Jabs Smash Burgers", price: 12.99, desc: "Try out our newest addition to the menu, with bacon and onions over smashed beef.", img: "../IMAGE/smashburger3.jpg" },
                 { name: "Texas Burger", price: 13.99, desc: "Stacked with cheddar, bacon, and a smoky BBQ", img: "/IMAGE/bacon-burger.jpg" }
             ],
             "appetizers-content": [
@@ -65,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 { name: "Classic Vanilla Ice Cream", price: 6, desc: "Smooth vanilla ice cream served in a waffle cone with chocolate drizzle.", img: "/IMAGE/Cuisinart-Vanilla-Ice-Cream-Recipe-5.jpg" }
             ]
         };
-
         localStorage.setItem("menuData", JSON.stringify(menu));
     }
 
@@ -124,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
             name: nameInput.value,
             price: parseFloat(priceInput.value).toFixed(2),
             desc: descInput.value,
-            img: imgInput.value || "/IMAGE/default.jpg"
+            img: imgInput.value || "IMAGE/default.jpg"
         };
 
         menu[category.value].push(item);
