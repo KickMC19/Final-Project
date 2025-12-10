@@ -7,7 +7,7 @@ function formatCurrency(amount) {
 
 // Redirect to login if not logged in
 if (!loggedInUser) {
-    window.location.href = '../Login-SignUp/login-signUp.html';
+    window.location.href = '/Final-Project/Login-SignUp/login-signUp.html';
 } else {
     document.getElementById('accountName').textContent = loggedInUser.name;
     document.getElementById('accountEmail').textContent = loggedInUser.email || "";
