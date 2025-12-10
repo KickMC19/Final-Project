@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loggedIn) {
             navLogin.textContent = "ACCOUNT";
             
-            navLogin.href = "account.html"; 
+            navLogin.href = "/Final-Project/Account/account.html"; 
         } else {
             navLogin.textContent = "LOGIN / SIGNUP";
-            navLogin.href = "Login-SignUp/login-signUp.html";
+            navLogin.href = "/Final-Project/Login-SignUp/login-signUp.html";
         }
     }
 
