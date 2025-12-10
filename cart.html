@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="./cart.css">
-</head>
+    </head>
 <body>
     <header class="main-header">
 
@@ -13,7 +13,7 @@
             <img src="./IMAGE/Logo.jpg" alt="Logo">
         </div>
 
-        <nav class="main-nav">
+    <nav class="main-nav">
             <ul>
                 <li><a href="index.html">HOME</a></li>
                 <li><a href="Menu.html">MENU</a></li>
@@ -24,14 +24,15 @@
         </nav>
 
         <div class="order-actions"> 
-            <a href="../cart.html" class="cart-icon-link active">
-                <span class="cart-count">0</span> <span class="cart-icon">🛍️</span>
-            </a>
-
-            <div class="order-button">
-                <a href="../cart.html" class="btn">ORDER NOW</a>
-            </div>
-        </div>
+    
+    <a href="../cart.html" class="cart-icon-link active">
+        <span class="cart-count">0</span> <span class="cart-icon">🛍️</span>
+    </a>
+    
+    <div class="order-button">
+        <a href="../cart.html" class="btn">ORDER NOW</a>
+    </div>
+</div>
     </header>
 
 <main class="cart-container">
@@ -44,7 +45,6 @@
             <table class="cart-table">
                 <thead>
                     <tr>
-                        <th>Photo</th>
                         <th>Item</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -52,117 +52,127 @@
                         <th>Remove</th>
                     </tr>
                 </thead>
-                <tbody id="cart-item-list"></tbody>
+                <tbody id="cart-item-list">
+                </tbody>
             </table>
         </div>
 
+        <div class="summary-and-actions">
+            <div class="order-options">
+                <div class="coupon-section">
+                    <h4>Coupon Code:</h4>
+                    <input type="text" id="coupon-input" placeholder="Enter code here">
+                    <button id="apply-coupon-btn" class="btn small-btn">Apply</button>
+                    <p id="coupon-message" class="coupon-message"></p>
+                </div>
+                
+                <div class="order-type-selection">
+                    <h4>Order Type:</h4>
+                    <label><input type="radio" name="orderType" value="pickup" checked> Pickup</label>
+                    <label><input type="radio" name="orderType" value="delivery"> Delivery</label>
+                </div>
 
-        <div class="cart-summary">
-            
-            <div class="summary-line order-type-selection">
-                <h4>Order Type:</h4>
-                <div class="delivery-options">
-                    <input type="radio" id="pickup" name="orderType" value="Pickup" checked>
-                    <label for="pickup">Pickup</label>
-                    <input type="radio" id="delivery" name="orderType" value="Delivery">
-                    <label for="delivery">Delivery</label>
+                <div id="delivery-address-container" style="display: none;">
+                    <h3>Delivery Address</h3>
+                    <div class="address-inputs">
+                        <label for="delivery-street">Street Address</label>
+                        <input type="text" id="delivery-street" placeholder="e.g., 123 Main St" required>
+                        <label for="delivery-city-state">City, State, Zip</label>
+                        <input type="text" id="delivery-city-state" placeholder="e.g., Fort Worth, TX 76107" required>
+                    </div>
+                </div>
+
+                <div class="tip-selection">
+                    <h4>Add a Tip:</h4>
+                    <input type="number" id="custom-tip-input" placeholder="Custom Tip $" min="0" step="0.01">
+                    <div class="tip-buttons">
+                        <button data-tip="0.10">10%</button>
+                        <button data-tip="0.15">15%</button>
+                        <button data-tip="0.20">20%</button>
+                    </div>
                 </div>
             </div>
-            
-            <hr class="summary-divider">
 
-            <div class="summary-line">
-                <span>Subtotal:</span>
-                <span id="subtotal-display">$0.00</span>
-            </div>
-
-            <div class="summary-line" id="discount-line" style="display: none;">
-                <span id="discount-label">Coupon Discount:</span>
-                <span id="discount-display">-$0.00</span>
-            </div>
-
-
-            <div class="summary-line coupon-input-line">
-                <span>Coupon Code:</span>
-                <input type="text" id="coupon-input" placeholder="Enter code">
-                <button id="apply-coupon-btn" class="apply-coupon-btn">Apply</button>
-            </div>
-
-
-            <div class="summary-line">
-                <span>Sales Tax:</span>
-                <span id="tax-display">$0.00</span>
-            </div>
-
-            <div class="tip-section">
-                <h4 class="tip-heading">Add a Tip:</h4>
-                <input type="number" id="custom-tip-input" placeholder="Enter Amount" min="0" step="0.01">
-                <div class="summary-line tip-amount-line">
-                    <span>Tip Amount:</span>
+            <div class="cart-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span id="subtotal-display">$0.00</span>
+                </div>
+                <div class="summary-line" id="discount-line" style="display: none;">
+                    <span id="discount-label">Coupon Discount:</span>
+                    <span id="discount-display">-$0.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Sales Tax:</span>
+                    <span id="tax-display">$0.00</span>
+                </div>
+                <div class="summary-line tip-line">
+                    <span>Tip:</span>
                     <span id="tip-display">$0.00</span>
                 </div>
-            </div>
-
-            <div class="summary-line grand-total-line">
-                <span>Grand total:</span>
-                <span id="grandtotal-display">$0.00</span>
-            </div>
-
-            <button class="checkout-btn">Check Out</button>
-         </div>
-
-    </div>
-</main>
-
-<div id="receipt-view" class="receipt-container-full">
-    <div class="receipt-card">
-        <h1 class="confirmation-heading">✅ Order Confirmed!</h1>
-        <p class="order-time">Your order will be ready in approximately 20-25 minutes.</p>
-        <p class="order-id">Order ID: **#<span id="order-id">000000</span>**</p>
-        
-        <hr>
-
-        <h2>Order Summary</h2>
-        <div id="receipt-items-list" class="receipt-items"></div>
-        
-        <hr>
-
-        <div class="receipt-totals">
-            <div class="summary-line">
-                <span>Subtotal:</span>
-                <span id="receipt-subtotal">$0.00</span>
-            </div>
-
-            <div class="summary-line" id="receipt-discount-line" style="display: none;">
-                <span id="receipt-discount-label">Coupon Discount:</span>
-                <span id="receipt-discount-display">-$0.00</span>
-            </div>
-
-            <div class="summary-line">
-                <span>Sales Tax:</span>
-                <span id="receipt-tax">$0.00</span>
-            </div>
-            <div class="summary-line tip-line">
-                <span>Tip:</span>
-                <span id="receipt-tip">$0.00</span>
-            </div>
-            <div class="summary-line grand-total-line">
-                <span>Total Charged:</span>
-                <span id="receipt-grandtotal">$0.00</span>
+                <div class="summary-line grand-total-line">
+                    <span>Grand Total:</span>
+                    <span id="grandtotal-display">$0.00</span>
+                </div>
+                <button class="checkout-btn btn">CHECKOUT</button>
             </div>
         </div>
-        
-        <button class="print-btn" onclick="window.print()">Print Receipt</button>
-        <a href="./Menu.html" class="new-order-link">Start a New Order</a>
     </div>
-</div>
 
-<footer>
-    <p>© 2025 Lonestar Bites. All Rights Reserved.</p>
-</footer>
+    <div id="receipt-view" class="receipt-container" style="display: none;">
+        <div class="receipt-card">
+            <h1>Order Confirmed!</h1>
+            <p class="order-time">Your order will be ready in approximately 20-25 minutes.</p>
+            <p class="customer-name-line">Customer: <span id="receipt-customer-name">Guest</span></p>
+            <p class="order-id">Order ID: **#<span id="order-id">000000</span>**</p>
+            
+            <hr>
+
+            <h2>Order Summary</h2>
+            <div id="receipt-items-list" class="receipt-items"></div>
+            
+            <hr>
+
+            <div class="receipt-totals">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span id="receipt-subtotal">$0.00</span>
+                </div>
+
+                <div class="summary-line" id="receipt-discount-line" style="display: none;">
+                    <span id="receipt-discount-label">Coupon Discount:</span>
+                    <span id="receipt-discount-display">-$0.00</span>
+                </div>
+
+                <div class="summary-line">
+                    <span>Sales Tax:</span>
+                    <span id="receipt-tax">$0.00</span>
+                </div>
+                <div class="summary-line tip-line">
+                    <span>Tip:</span>
+                    <span id="receipt-tip">$0.00</span>
+                </div>
+                <div class="summary-line grand-total-line">
+                    <span>Total Charged:</span>
+                    <span id="receipt-grandtotal">$0.00</span>
+                </div>
+            </div>
+            
+            <button class="print-btn" onclick="window.print()">Print Receipt</button>
+            <a href="./Menu.html" class="new-order-link">Start a New Order</a>
+        </div>
+    </div>
+
+
+ </main> 
+ <footer>
+      <p>© 2025 Lonestar Bites. All Rights Reserved.</p>
+  </footer>
 
 <script src="cart.js"></script>
 <script src="script.js"></script>
 <script src="Manager/manager.js"></script>
+<script src="Account/account.js"></script>
 </body>
 </html>

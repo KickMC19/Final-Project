@@ -17,9 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const discountLine = document.getElementById('discount-line');
     const discountDisplay = document.getElementById('discount-display');
 
-    
     const orderTypeInputs = document.querySelectorAll('input[name="orderType"]');
     
+    const deliveryAddressContainer = document.getElementById('delivery-address-container');
+    const deliveryStreetInput = document.getElementById('delivery-street');
+    const deliveryCityStateInput = document.getElementById('delivery-city-state');
     
     const receiptItemsList = document.getElementById('receipt-items-list');
     const receiptSubtotal = document.getElementById('receipt-subtotal');
@@ -27,34 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const receiptTip = document.getElementById('receipt-tip');
     const receiptGrandtotal = document.getElementById('receipt-grandtotal');
     const orderIdDisplay = document.getElementById('order-id');
-    const receiptOrderTypeDisplay = document.getElementById('receipt-order-type'); // NEW: Receipt display element
 
-    
     const receiptDiscountLine = document.getElementById('receipt-discount-line');
     const receiptDiscountDisplay = document.getElementById('receipt-discount-display');
-    const receiptDiscountLabel = document.getElementById('receipt-discount-label');
 
-    
-    const cartCountElement = document.querySelector('.cart-count');
+    const receiptCustomerName = document.getElementById('receipt-customer-name');
 
     const TAX_RATE = 0.08; 
     let cart = JSON.parse(localStorage.getItem('restaurantCart')) || [];
-
-    const VALID_COUPONS = {
-        "CSET2025": { type: 'percent', value: 0.20, label: 'CSET2025 (20% Off)' },
-        "SAVE10": { type: 'flat', value: 10.00, label: 'SAVE10 ($10 Off)' },
-    };
-    let appliedCoupon = JSON.parse(localStorage.getItem('appliedCoupon')) || null;
-
-   
-    let selectedOrderType = localStorage.getItem('orderType') || 'Pickup';
-
-    
-    let finalSubtotal = 0;
-    let finalTaxAmount = 0;
-    let finalTipAmount = 0;
-    let finalDiscountAmount = 0;
-    let finalGrandTotal = 0;
+    let selectedOrderType = localStorage.getItem('orderType') || 'pickup';
+    let appliedCoupon = JSON.parse(localStorage.getItem('appliedCoupon'));
+    const validCoupons = [
+        { code: 'SAVE10', discount: 0.10, minPurchase: 20.00 },
+        { code: 'FREEDELIVERY', discount: 1.00, minPurchase: 50.00 }
+    ];
 
     function formatCurrency(amount) {
         return `$${amount.toFixed(2)}`;
@@ -62,100 +50,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function calculateTotals() {
         let subtotal = 0;
-        let totalQuantity = 0; 
-        
-        
-        cart.forEach(item => {
-            subtotal += item.price * item.quantity;
-            totalQuantity += item.quantity; 
-        });
+        cart.forEach(item => { subtotal += item.price * item.quantity; });
 
-        let couponDiscount = 0;
+        let finalSubtotal = subtotal;
+        let finalDiscountAmount = 0;
+
         if (appliedCoupon) {
-            const couponData = VALID_COUPONS[appliedCoupon.code];
-            if (couponData) {
-                if (couponData.type === 'percent') {
-                    couponDiscount = subtotal * couponData.value;
-                } else if (couponData.type === 'flat') {
-                    couponDiscount = couponData.value;
-                }
-                couponDiscount = Math.min(couponDiscount, subtotal);
+            if (appliedCoupon.discount < 1) {
+                finalDiscountAmount = finalSubtotal * appliedCoupon.discount;
+                finalSubtotal = finalSubtotal - finalDiscountAmount;
+            } else {
+                finalDiscountAmount = appliedCoupon.discount;
+                finalSubtotal = finalSubtotal - finalDiscountAmount;
+                if (finalSubtotal < 0) finalSubtotal = 0;
             }
         }
-
-        if (couponDiscount > 0) {
-            discountDisplay.textContent = `-${formatCurrency(couponDiscount)}`;
-            document.getElementById('discount-label').textContent = `${VALID_COUPONS[appliedCoupon.code].label} Discount:`;
-            discountLine.style.display = 'flex';
-        } else {
-            discountLine.style.display = 'none';
-        }
-
-        const discountedSubtotal = subtotal - couponDiscount;
-        const tipAmount = parseFloat(customTipInput.value) || 0;
-        const taxAmount = discountedSubtotal * TAX_RATE;
-        let grandTotal = discountedSubtotal + taxAmount + tipAmount;
-
-        finalSubtotal = subtotal;
-        finalTaxAmount = taxAmount;
-        finalTipAmount = tipAmount;
-        finalDiscountAmount = couponDiscount;
-        finalGrandTotal = grandTotal;
+        
+        const taxAmount = finalSubtotal * TAX_RATE;
+        
+        let tipAmount = parseFloat(customTipInput.value) || 0;
+        
+        const grandTotal = finalSubtotal + taxAmount + tipAmount;
 
         subtotalDisplay.textContent = formatCurrency(subtotal);
         taxDisplay.textContent = formatCurrency(taxAmount);
         tipDisplay.textContent = formatCurrency(tipAmount);
         grandtotalDisplay.textContent = formatCurrency(grandTotal);
-        
-        
-        itemCountDisplay.textContent = totalQuantity; 
-        cartCountElement.textContent = totalQuantity;
+
+        if (finalDiscountAmount > 0) {
+            discountLine.style.display = 'flex';
+            discountDisplay.textContent = `-${formatCurrency(finalDiscountAmount)}`;
+        } else {
+            discountLine.style.display = 'none';
+        }
+
+        return { finalSubtotal, finalTaxAmount: taxAmount, finalTipAmount: tipAmount, finalGrandTotal: grandTotal, finalDiscountAmount, appliedCoupon };
+    }
+
+    function updateCartCount() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.querySelector('.cart-count').textContent = totalItems;
+        itemCountDisplay.textContent = totalItems;
     }
 
     function renderCart() {
+        cartList.innerHTML = '';
         if (cart.length === 0) {
-            cartList.innerHTML = '<tr><td colspan="6" class="empty-cart-message">Your cart is empty.</td></tr>';
+            cartList.innerHTML = '<tr><td colspan="5" class="empty-cart-message">Your cart is empty.</td></tr>';
         } else {
-            cartList.innerHTML = cart.map((item, index) => {
-                
-                return `<tr data-index="${index}">
-                    
-                    <td>${item.name}</td>
+            cart.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="item-name">${item.name}</td>
                     <td>${formatCurrency(item.price)}</td>
-                    <td>
-                        <div class="quantity-controls">
-                            <button class="decrease" data-index="${index}">-</button>
-                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-index="${index}">
-                            <button class="increase" data-index="${index}">+</button>
-                        </div>
+                    <td class="item-quantity">
+                        <button class="qty-btn" data-action="decrease" data-index="${index}">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="qty-btn" data-action="increase" data-index="${index}">+</button>
                     </td>
                     <td>${formatCurrency(item.price * item.quantity)}</td>
-                    <td><button class="remove-item" data-index="${index}">Remove</button></td>
-                </tr>`;
-            }).join('');
+                    <td><button class="remove-btn" data-index="${index}">Remove</button></td>
+                `;
+                cartList.appendChild(row);
+            });
         }
+        updateCartCount();
         calculateTotals();
     }
 
     function handleQuantityChange(event) {
-        const target = event.target;
-        if (target.closest('.quantity-controls')) {
-            const index = parseInt(target.closest('tr').getAttribute('data-index'));
-            if (target.classList.contains('increase')) cart[index].quantity++;
-            else if (target.classList.contains('decrease') && cart[index].quantity > 1) cart[index].quantity--;
-            else if (target.classList.contains('decrease') && cart[index].quantity === 1) cart.splice(index, 1);
-        } else if (target.classList.contains('quantity-input')) {
-            const index = parseInt(target.getAttribute('data-index'));
-            const newQuantity = parseInt(target.value);
-            if (!isNaN(newQuantity) && newQuantity >= 1) cart[index].quantity = newQuantity;
+        if (event.target.classList.contains('qty-btn')) {
+            const action = event.target.dataset.action;
+            const index = parseInt(event.target.dataset.index);
+
+            if (action === 'increase') {
+                cart[index].quantity++;
+            } else if (action === 'decrease') {
+                cart[index].quantity--;
+                if (cart[index].quantity < 1) {
+                    cart.splice(index, 1);
+                }
+            }
+            localStorage.setItem('restaurantCart', JSON.stringify(cart));
+            renderCart();
         }
-        localStorage.setItem('restaurantCart', JSON.stringify(cart));
-        renderCart();
     }
 
+    if (loggedInUser && loggedInUser.name) {
+            receiptCustomerName.textContent = loggedInUser.name;
+        } else {
+            
+            receiptCustomerName.textContent = 'Guest'; 
+        }
+
     function handleRemoveItem(event) {
-        if (event.target.classList.contains('remove-item')) {
-            const index = parseInt(event.target.getAttribute('data-index'));
+        if (event.target.classList.contains('remove-btn')) {
+            const index = parseInt(event.target.dataset.index);
             cart.splice(index, 1);
             localStorage.setItem('restaurantCart', JSON.stringify(cart));
             renderCart();
@@ -163,75 +153,113 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyCoupon() {
-        const inputCode = couponInput.value.trim().toUpperCase();
-        if (VALID_COUPONS[inputCode]) {
-            appliedCoupon = { code: inputCode, discount: VALID_COUPONS[inputCode].value, type: VALID_COUPONS[inputCode].type };
-            localStorage.setItem('appliedCoupon', JSON.stringify(appliedCoupon));
+        const code = couponInput.value.trim().toUpperCase();
+        const couponMessage = document.getElementById('coupon-message');
+        couponMessage.textContent = '';
+        appliedCoupon = null;
+        localStorage.removeItem('appliedCoupon');
+
+        const coupon = validCoupons.find(c => c.code === code);
+        
+        if (!coupon) {
+            couponMessage.textContent = 'Invalid coupon code.';
+            couponMessage.style.color = 'red';
             calculateTotals();
-            alert(`Coupon ${inputCode} Applied!`);
-            couponInput.value = '';
-        } else if (inputCode === '' && appliedCoupon) {
-            appliedCoupon = null;
-            localStorage.removeItem('appliedCoupon');
-            calculateTotals();
-            alert('Coupon removed.');
-        } else if (inputCode !== '') {
-            alert('Invalid Coupon Code.');
+            return;
         }
+
+        let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        if (subtotal < coupon.minPurchase) {
+            couponMessage.textContent = `Cart total must be at least ${formatCurrency(coupon.minPurchase)} to use this coupon.`;
+            couponMessage.style.color = 'orange';
+            calculateTotals();
+            return;
+        }
+
+        appliedCoupon = coupon;
+        localStorage.setItem('appliedCoupon', JSON.stringify(appliedCoupon));
+        couponMessage.textContent = `${coupon.code} applied!`;
+        couponMessage.style.color = 'green';
+        calculateTotals();
     }
-
-
-
-    function handleOrderTypeChange(event) {
-        selectedOrderType = event.target.value;
-        localStorage.setItem('orderType', selectedOrderType);
-    }
-
     
     function initializeOrderType() {
+        if (selectedOrderType) {
+            document.querySelector(`input[value="${selectedOrderType}"]`).checked = true;
+        }
+
+        if (selectedOrderType === 'delivery') {
+            deliveryAddressContainer.style.display = 'block';
+        } else {
+            deliveryAddressContainer.style.display = 'none';
+        }
+
         orderTypeInputs.forEach(input => {
-            if (input.value === selectedOrderType) {
-                input.checked = true;
-            }
-            
-            input.addEventListener('change', handleOrderTypeChange);
+            input.addEventListener('change', (e) => {
+                selectedOrderType = e.target.value;
+                localStorage.setItem('orderType', selectedOrderType);
+                if (selectedOrderType === 'delivery') {
+                    deliveryAddressContainer.style.display = 'block';
+                } else {
+                    deliveryAddressContainer.style.display = 'none';
+                }
+            });
         });
     }
 
-    
     checkoutBtn.addEventListener('click', () => {
-        if (cart.length === 0) { alert("Your cart is empty."); return; }
+        if (cart.length === 0) {
+            alert('Your cart is empty. Please add items before checking out.');
+            return;
+        }
+
+        let deliveryAddress = null;
+        if (selectedOrderType === 'delivery') {
+            const street = deliveryStreetInput.value.trim();
+            const cityState = deliveryCityStateInput.value.trim();
+            
+            if (!street || !cityState) {
+                alert('Please enter a valid delivery address.');
+                return;
+            }
+            deliveryAddress = { street: street, cityState: cityState };
+        }
+
+        const { finalSubtotal, finalTaxAmount, finalTipAmount, finalGrandTotal, finalDiscountAmount, appliedCoupon } = calculateTotals();
 
         const orderId = Math.floor(Math.random() * 900000) + 100000;
         orderIdDisplay.textContent = orderId;
-        
-        
-        receiptOrderTypeDisplay.textContent = selectedOrderType;
-        
         receiptSubtotal.textContent = formatCurrency(finalSubtotal);
-        if (finalDiscountAmount > 0) {
-            receiptDiscountLabel.textContent = `${appliedCoupon.code} Discount:`;
-            receiptDiscountDisplay.textContent = `-${formatCurrency(finalDiscountAmount)}`;
-            receiptDiscountLine.style.display = 'flex';
-        } else receiptDiscountLine.style.display = 'none';
         receiptTax.textContent = formatCurrency(finalTaxAmount);
         receiptTip.textContent = formatCurrency(finalTipAmount);
         receiptGrandtotal.textContent = formatCurrency(finalGrandTotal);
+        
+        if (finalDiscountAmount > 0) {
+            receiptDiscountLine.style.display = 'flex';
+            receiptDiscountDisplay.textContent = `-${formatCurrency(finalDiscountAmount)}`;
+        } else {
+            receiptDiscountLine.style.display = 'none';
+        }
 
         receiptItemsList.innerHTML = '';
         cart.forEach(item => {
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('receipt-item-line');
-            itemDiv.innerHTML = `<span class="item-name-qty">${item.quantity}x ${item.name}</span>
-            <span class="item-price-total">${formatCurrency(item.price * item.quantity)}</span>`;
+            itemDiv.innerHTML = `
+                <span class="item-name-qty">${item.quantity}x ${item.name}</span>
+                <span class="item-price-total">${formatCurrency(item.price * item.quantity)}</span>
+            `;
             receiptItemsList.appendChild(itemDiv);
         });
 
         const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        
         if (loggedInUser && loggedInUser.email) {
             const allUserOrders = JSON.parse(localStorage.getItem('allUserOrders')) || {};
             const userEmail = loggedInUser.email;
             if (!allUserOrders[userEmail]) allUserOrders[userEmail] = [];
+
             const newOrder = {
                 id: `#${orderId}`,
                 date: new Date().toLocaleString(),
@@ -242,19 +270,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 total: finalGrandTotal,
                 discount: finalDiscountAmount,
                 couponCode: appliedCoupon ? appliedCoupon.code : null,
-                orderType: selectedOrderType 
+                orderType: selectedOrderType,
+                deliveryAddress: deliveryAddress
             };
-            allUserOrders[userEmail].unshift(newOrder);
+            
+            allUserOrders[userEmail].unshift(newOrder); 
             localStorage.setItem('allUserOrders', JSON.stringify(allUserOrders));
         }
 
-        
         cart = []; 
         localStorage.removeItem('restaurantCart'); 
         localStorage.removeItem('appliedCoupon');
         localStorage.removeItem('orderType'); 
-        
-        
+
         cartView.style.display = "none";
         receiptView.style.display = "block";
 
@@ -263,13 +291,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderCart();
 
-    
     initializeOrderType();
 
-    
     cartList.addEventListener('click', handleQuantityChange);
     cartList.addEventListener('click', handleRemoveItem);
+
+    document.querySelectorAll('.tip-buttons button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const percentage = parseFloat(e.target.dataset.tip);
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            let finalSubtotal = subtotal;
+            if (appliedCoupon) {
+                if (appliedCoupon.discount < 1) {
+                    finalSubtotal = finalSubtotal * (1 - appliedCoupon.discount);
+                } else {
+                    finalSubtotal = finalSubtotal - appliedCoupon.discount;
+                    if (finalSubtotal < 0) finalSubtotal = 0;
+                }
+            }
+            customTipInput.value = (finalSubtotal * percentage).toFixed(2);
+            calculateTotals();
+        });
+    });
+
     customTipInput.addEventListener('input', calculateTotals);
+    
     applyCouponBtn.addEventListener('click', applyCoupon);
+    
     calculateTotals();
 });
